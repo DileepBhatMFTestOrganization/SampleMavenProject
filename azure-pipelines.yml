@@ -1,21 +1,4 @@
 # Maven
-- task: FortifyOnDemandStatic@8
-  inputs:
-    FortifyProjects: './'
-    ScanCentralLocation: 'C:\Software\Fortify_ScanCentral_Client_Latest_x64'
-    FodConnection: 'FOD_Local_Connection'
-    ReleaseOptions: '0'
-    ReleaseId: 275
-    EntitlementSelection: '1'
-    EntitlementPreference: '3'
-    OverrideScanSettings: '2'
-    InProgressScanActionType: '2'
-    RemediationScanPreference: '0'
-    BuildType: 'mvn'
-# Build your Java project and run tests with Apache Maven.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/java
-
 trigger:
 - main
 
@@ -33,3 +16,17 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+- task: FortifyOnDemandStatic@8
+  inputs:
+    FortifyProjects: '$(build.artifactstagingdirectory)'
+    ScanCentralLocation: 'C:\Software\Fortify_ScanCentral_Client_Latest_x64\bin'
+    FodConnection: 'FOD_Local_Connection'
+    ReleaseOptions: '0'
+    ReleaseId: 275
+    EntitlementSelection: '1'
+    EntitlementPreference: '1'
+    OverrideScanSettings: '2'
+    InProgressScanActionType: '2'
+    RemediationScanPreference: '0'
+    BuildType: 'mvn'
+    PolicyFailAction: '0'
