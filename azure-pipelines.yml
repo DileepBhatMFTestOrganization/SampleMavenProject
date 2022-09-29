@@ -19,7 +19,6 @@ steps:
 - task: FortifyOnDemandStatic@8
   inputs:
     FortifyProjects: '$(build.artifactstagingdirectory)'
-    ScanCentralLocation: 'C:/Software/Fortify_ScanCentral_Client_Latest_x64/bin'
     FodConnection: 'FOD_Local_Connection'
     ReleaseOptions: '0'
     ReleaseId: 275
