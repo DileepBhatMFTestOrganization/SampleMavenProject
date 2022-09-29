@@ -1,4 +1,3 @@
-# Maven
 trigger:
 - main
 
@@ -6,6 +5,17 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+# Maven
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
 - task: FortifyOnDemandStatic@8
   inputs:
     FortifyProjects: '$(build.artifactstagingdirectory)'
@@ -17,5 +27,5 @@ steps:
     OverrideScanSettings: '2'
     InProgressScanActionType: '2'
     RemediationScanPreference: '0'
-    BuildType: 'mvn'
+    BuildType: 'none'
     PolicyFailAction: '0'
